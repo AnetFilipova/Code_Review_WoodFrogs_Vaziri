@@ -1,8 +1,16 @@
 ## Code Review for "Winter break? The effect of overwintering on immune gene expression in wood frogs" by Vaziri et al.(2024).
 
-This paper focuses on exploting the immune gene expression responses to transitions into and out of the cold season in a winter-adapted
+This paper focuses on exploring the immune gene expression responses to transitions into and out of the cold season in a winter-adapted
 amphibian, the wood frog (*Lithobates sylvaticus*). While the paper's main objective is to understand how these ectothermic animals respond to parasitism in a reduced physiological state during winter hibernation, I chose to review the code because of the bioinformatic pipeline they have used. They have implemented an RNAseq pipeline to look at differential gene expression at different timepoints. This is relevant to my work as I am also looking at the transcriptomic responses of skipping or experiencing first-year cold dormancy in gopher tortoises (*Gopherus polyphemus*). 
 
 Link to the paper: [here](https://www.sciencedirect.com/science/article/pii/S1744117X24001096?via%3Dihub)
 
 Link to the code: [here](https://github.com/gracevaziri/Naturally-Hibernating-Frog-Transcriptomics)
+
+Overall Impression from the code:
+The code is well organised with each script being named intuitively so it gives the reader an overall idea of its function. In addition, scripts are numbered sequentially so the reader knows what preceeds and what follows. I really like the idea of the code's author writing down small annotations before chunks of code where they explain what the next couple of lines of code are supposed to do but more importantly, I really like how the author has written small summary statements and sanity checks. For example, in 02_Prepare Annotation.R they wrote "so from above, I can see that there are obviously multiple transcripts assoiated with a single gene. Each of these transcripts was retained from transdecoder output because it was the isoform with the highest score. Now what I want to do is to find and retain one single transcript for each gene that has the longest transcript length". Another nice example is in the same script: "At this point, I should just have one line in my entap file that corresponds to a geneid in my count file", followed by a validation if indeed they got one line in the entap file that corresponds to a geneid in their count/ file.
+
+Revision Points:
+
+1) For every .R script, it will be good to have an overall description of what this script is supposed to be doing. For example, even though it is intuitive from the name of the script what 02_Prepare Annotation.R is doing, it would be useful to have a more thorough description of the input and output files. Of course, adding a line or two before each step of the code is good but the scripts would benefit from more detailed information. 
+2) For WGCNA analyses, there are two reusable functions "make_module_heatmap_vs()" and "make_module_heatmap_sp()" with docstrings and default arguments which is good, however, the code is essentially duplicate which results in one long file. Instead, a key improvement would be one parameterized function for the whole WGCNA pipeline which will run for any tissue and returns a list of results specifically for ventral skin or for spleen. 
