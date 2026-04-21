@@ -14,15 +14,18 @@ To address this, the authors housed wild-caught juvenile wood frogs in outdoor e
 
 ### Overall Code Summary:
 1) The code is well organised with each scripts found in both the author's [GitHub repository](https://github.com/gracevaziri/Naturally-Hibernating-Frog-Transcriptomics) and all metadata can be accessed through [FigShare](https://figshare.com/articles/dataset/Overwintering_wood_frog_2019-2020/25676361). In the GitHub repository, all scripts are named intuitively which gives the reader an overall idea of their function. In addition, scripts are numbered sequentially (e.g. 01, 02, 03, etc.) so the reader knows what preceeds and what follows.
-2) I am convinced the auathors have provided enough information on how to reproduce their results. Things that are essential for reproducibility that I easily found include:
+
+2) I am convinced the authors have provided enough information on how to reproduce their results. Things that are essential for reproducibility that I easily found include:
 - climate data
 - individual IDs, sample period, tissue type, mass and SVL, sex, parasite species and load per tissue
 - gene IDs, gene counts and gene annotations 
 - bioinformatic tools such as StringTie and R packages such as  DESeq2, *adegenet*, WCGNA, *limma* and *goseq* with the versions they used   
-3) I really like that for the most part there is internal documentation, i.e.  there are small annotations before chunks of code where they explain what the next couple of lines are supposed to do but more importantly, I really like how they have small summary statements and sanity checks. For example, in 02_Prepare Annotation.R they wrote **"so from above, I can see that there are obviously multiple transcripts assoiated with a single gene. Each of these transcripts was retained from transdecoder output because it was the isoform with the highest score. Now what I want to do is to find and retain one single transcript for each gene that has the longest transcript length"**. Another nice example is in the same script: **"At this point, I should just have one line in my entap file that corresponds to a geneid in my count file"**, followed by a validation if indeed they got one line in the entap file that corresponds to a geneid in their count/file.
+
+3) I really like that for the most part there is internal documentation, i.e.  there are small annotations before blocks of code where they explain what the next couple of lines are supposed to do but more importantly, I really like how they have small summary statements and sanity checks. For example, in `02_Prepare Annotation.R` they wrote **"so from above, I can see that there are obviously multiple transcripts assoiated with a single gene. Each of these transcripts was retained from transdecoder output because it was the isoform with the highest score. Now what I want to do is to find and retain one single transcript for each gene that has the longest transcript length"**. Another nice example is in the same script: **"At this point, I should just have one line in my entap file that corresponds to a geneid in my count file"**, followed by a validation if indeed they got one line in the entap file that corresponds to a geneid in their count/file.
+
 4) The authors have properly cited any external sources in cases where they used other people's code or servers
 
-## High-level Suggestions:
+### High-level Suggestions:
 
 1) Consider adding a README file to the repository which would greatly improve reproducibility. Things that may be included:
 - an overview of the project and biological questions being asked
@@ -40,7 +43,7 @@ To address this, the authors housed wild-caught juvenile wood frogs in outdoor e
 
 5) Git version control was never implemented; there is only one commit in the entire history, meaning Git was never used to track changes, iterations, or development of the code over time. The authors uploaded all .R files directly through the GitHub website which indicates that they did not commit and push through RStudio or the command line frequently nor used descriptive commit messages which interferes with reproducibility and transparency.
 
-## Low-level Suggestions:
+### Low-level Suggestions:
 
 1) For WGCNA analyses, there are two reusable functions make_module_heatmap_vs() and make_module_heatmap_sp() with docstrings and default arguments, which is good. However, the code is essentially duplicated, resulting in one long file. A key improvement would be a single parameterized function for the whole WGCNA pipeline that can run for any tissue and return a list of results specifically for ventral skin or spleen. 
 
